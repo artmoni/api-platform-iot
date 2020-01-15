@@ -2,13 +2,13 @@
 
 ## Description
 
-L'objectif de ce projet est d'aider a l'économie énergitique en proposant 
-une solution IOT qui coupe les radiateurs d'une habitation lorsqu'une porte/fenêtre
+L'objectif de ce projet est d'aider à l'économie énergétique en proposant 
+une solution IoT qui coupe les radiateurs d'une habitation lorsqu'une porte/fenêtre
 est ouverte.
 
 ## Informations générales
 
-PAN ID : 777
+PAN ID : 31415
 
 
 ## Lancer le projet
