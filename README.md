@@ -44,3 +44,23 @@ docker-compose up
 
 3) Vérifier que les containers sont bien lancés :
 ```docker ps```
+
+#### Disclaimer !
+
+Il est impossible pour le container docker possédant node.js d'accéder aux ports COM.
+
+Pour résoudre ce probleme : 
+
+ 1) Installez  node.js sur votre machine (si ce n'est pas déjà fait).
+    liens : https://nodejs.org/en/
+
+ 2) Ouvrez un terminal (Powershell ou CMD) en mode administateur.
+
+ 3) Accédez à votre dossier.
+
+ 4) lancez les commandes suivantes : 
+    ```
+    npm install
+    npm start
+
+    ```
