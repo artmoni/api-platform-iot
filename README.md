@@ -7,7 +7,20 @@ habitation lorsqu'une fenêtre ou une porte est ouverte.
 
 ## Information général
 
-PAN  ID :
+* PAN  ID : 31415
+  * Commande AT : ATID 31415
+  
+ ## End Device
+ 
+* Pin D0 : Commisionning Button
+  * Command AT : ATD0 1
+  
+* CE : Coordinator Enblaed -> Disable
+
+## Coordinateur
+
+* CE : Coordinator Enblaed -> Enable
+
 ## Environnement de développement
 
 ### Pré-requis
