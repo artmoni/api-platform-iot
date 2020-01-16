@@ -2,7 +2,7 @@ const io = require('socket.io')();
 var SerialPort = require('serialport');
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
-
+var doorStatus = new Map();
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
 });
@@ -59,8 +59,11 @@ xbeeAPI.parser.on("data", function (frame) {
 
   if (C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type) {
     // let dataReceived = String.fromCharCode.apply(null, frame.nodeIdentifier);
-    // console.log(">> ZIGBEE_RECEIVE_PACKET >", frame);
-
+    console.log(">> ZIGBEE_RECEIVE_PACKET >", frame.data);
+    xbee_adress64 = frame.remote64;
+    doorList.set(xbee_adress64, false);
+    xbee_adress16 = frame.remote16;
+    
 
   } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
 
