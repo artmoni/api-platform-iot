@@ -1,6 +1,6 @@
 # Capteur fermeture porte/fenêtre
 
-## Déscription
+## Description
 
 Ce projet à pour objectif d'aider a l'économie d'energie en coupant les radiateurs d'une
 habitation lorsqu'une fenêtre ou une porte est ouverte.
@@ -16,6 +16,7 @@ PAN  ID :
 * Docker-Compose
 * nodejs
 * npm/yarn
+* [driver com/usb](https://www.silabs.com/products/development-tools/software/usb-to-uart-bridge-vcp-drivers)
 
 ### Etapes d'installation
 
