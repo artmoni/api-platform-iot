@@ -101,15 +101,15 @@ Plusieurs  processus docker sont lancés sur la machines et engendre des conflit
  
  
  
- ## Réalisations
+ ## Description fonctionnel
  
- L'applications peut être découpés en 4 élements :
+ L'application peut-être découpées en 4 élements :
  
- 1. Le socket détecte l'ouverture et fermeture des portes
+ 1. Le socket qui détecte l'ouverture et fermeture des portes
  
- 2. L'api node.js  récupère traite et stock cette donnée 
+ 2. L'API node.js  récupère, traite et stock ces données  
  
- 3. La l'api php symfony qui s'occupe récupérer la donnée stocker et l'afficher dans la section client
+ 3. La l'API php symfony qui s'occupe récupérer les données stocker et l'afficher dans la section client
  
  4. client react native affiche les données aux utilisateurs
  
