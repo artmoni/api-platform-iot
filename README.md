@@ -45,6 +45,10 @@ docker-compose up
 3) Vérifier que les containers sont bien lancés :
 ```docker ps```
 
+### Diagramme de classe
+
+<img src="https://zupimages.net/up/20/03/037m.png"/>
+
 #### Disclaimer !
 
 Il est impossible pour le container docker possédant node.js d'accéder aux ports COM.
