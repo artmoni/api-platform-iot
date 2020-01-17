@@ -115,4 +115,4 @@ Plusieurs  processus docker sont lancés sur la machines et engendre des conflit
  
  ## Amélioration
  
- 1. réalisation d'un timer qui calcul le temps d'ouverture des portes 
+ 1.Réalisation d'un timer qui calcul le temps d'ouverture des portes 
