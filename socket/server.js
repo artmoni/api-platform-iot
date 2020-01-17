@@ -1,6 +1,7 @@
 const io = require('socket.io')();
 var SerialPort = require('serialport');
 var util = require("util");
+var request = require("request");
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
 
@@ -27,8 +28,6 @@ function registrationSettings(address) {
   // Registration of the new node
   openingStatus.set(frame.sender64, !openingStatus.get(frame.sender16))
 
-
-  console.log('REGISTRATION - Registration complete')
 }
 
 
