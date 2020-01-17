@@ -1,0 +1,113 @@
+Creating network "apiplatformiot_default" with the default driver
+Creating apiplatformiot_socket_1 ... 
+Creating apiplatformiot_db_1 ... 
+Creating apiplatformiot_dev-tls_1 ... 
+Creating apiplatformiot_db_1
+Creating apiplatformiot_dev-tls_1
+Creating apiplatformiot_socket_1
+[1A[2KCreating apiplatformiot_dev-tls_1 ... [32mdone[0m[1BCreating apiplatformiot_admin_1 ... 
+Creating apiplatformiot_mercure_1 ... 
+Creating apiplatformiot_client_1 ... 
+Creating apiplatformiot_admin_1
+Creating apiplatformiot_client_1
+Creating apiplatformiot_mercure_1
+[1A[2KCreating apiplatformiot_db_1 ... [32mdone[0m[1BCreating apiplatformiot_php_1 ... 
+Creating apiplatformiot_php_1
+[1A[2KCreating apiplatformiot_socket_1 ... [32mdone[0m[1B[1A[2KCreating apiplatformiot_mercure_1 ... [32mdone[0m[1B[1A[2KCreating apiplatformiot_php_1 ... [32mdone[0m[1BCreating apiplatformiot_api_1 ... 
+Creating apiplatformiot_api_1
+[1A[2KCreating apiplatformiot_api_1 ... [32mdone[0m[1BCreating apiplatformiot_vulcain_1 ... 
+Creating apiplatformiot_vulcain_1
+[1A[2KCreating apiplatformiot_client_1 ... [32mdone[0m[1B[1A[2KCreating apiplatformiot_admin_1 ... [32mdone[0m[1B[1A[2KCreating apiplatformiot_vulcain_1 ... [32mdone[0m[1BAttaching to apiplatformiot_dev-tls_1, apiplatformiot_db_1, apiplatformiot_socket_1, apiplatformiot_mercure_1, apiplatformiot_php_1, apiplatformiot_api_1, apiplatformiot_client_1, apiplatformiot_admin_1, apiplatformiot_vulcain_1
+[33mdb_1       |[0m 
+[33mdb_1       |[0m PostgreSQL Database directory appears to contain a database; Skipping initialization
+[33mdb_1       |[0m 
+[35mmercure_1  |[0m time="2020-01-17T14:59:17Z" level=info msg="Mercure started" addr= protocol=https
+[33mdb_1       |[0m 2020-01-17 14:59:14.857 UTC [1] LOG:  starting PostgreSQL 12.1 on x86_64-pc-linux-musl, compiled by gcc (Alpine 8.3.0) 8.3.0, 64-bit
+[33mdb_1       |[0m 2020-01-17 14:59:14.857 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+[33mdb_1       |[0m 2020-01-17 14:59:14.857 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+[32msocket_1   |[0m yarn run v1.12.3
+[31mphp_1      |[0m Loading composer repositories with package information
+[36;1mclient_1   |[0m yarn run v1.21.1
+[32msocket_1   |[0m $ cross-env NODE_ENV=production node server
+[32msocket_1   |[0m listening on port  8000
+[33mdb_1       |[0m 2020-01-17 14:59:14.881 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+[32msocket_1   |[0m Error:  Error: No such file or directory, cannot open /dev/ttyUSB1
+[31mphp_1      |[0m Installing dependencies (including require-dev) from lock file
+[36;1mclient_1   |[0m $ react-scripts start
+[33mdb_1       |[0m 2020-01-17 14:59:14.924 UTC [20] LOG:  database system was shut down at 2020-01-17 14:59:02 UTC
+[33mdb_1       |[0m 2020-01-17 14:59:14.934 UTC [1] LOG:  database system is ready to accept connections
+[31mphp_1      |[0m Nothing to install or update
+[31mphp_1      |[0m Generating autoload files
+[31mphp_1      |[0m ocramius/package-versions: Generating version class...
+[31mphp_1      |[0m ocramius/package-versions: ...done generating version class
+[31mphp_1      |[0m Executing script cache:clear [OK]
+[31mphp_1      |[0m Executing script assets:install public
+[31mphp_1      |[0m  [OK]
+[31mphp_1      |[0m Waiting for db to be ready...
+[31mphp_1      |[0m                                                               
+[31mphp_1      |[0m                     Application Migrations                    
+[31mphp_1      |[0m                                                               
+[31mphp_1      |[0m 
+[31mphp_1      |[0m WARNING! You have 3 previously executed migrations in the database that are not registered migrations.
+[31mphp_1      |[0m     >> 2020-01-17 14:07:36 (20200117140736)
+[31mphp_1      |[0m     >> 2020-01-17 14:13:40 (20200117141340)
+[31mphp_1      |[0m     >> 2020-01-17 14:25:57 (20200117142557)
+[31mphp_1      |[0m No migrations to execute.
+[31mphp_1      |[0m [17-Jan-2020 14:59:22] NOTICE: fpm is running, pid 1
+[31mphp_1      |[0m [17-Jan-2020 14:59:22] NOTICE: ready to handle connections
+[33;1madmin_1    |[0m yarn run v1.21.1
+[33;1madmin_1    |[0m $ react-scripts start
+[32;1mvulcain_1  |[0m time="2020-01-17T14:59:24Z" level=info msg="Vulcain started" addr= protocol=https
+[36;1mclient_1   |[0m Starting the development server...
+[36;1mclient_1   |[0m 
+[33;1madmin_1    |[0m Starting the development server...
+[33;1madmin_1    |[0m 
+[31mphp_1      |[0m 127.0.0.1 -  17/Jan/2020:14:59:29 +0000 "GET /ping" 200
+[31mphp_1      |[0m 127.0.0.1 -  17/Jan/2020:14:59:39 +0000 "GET /ping" 200
+[33mdb_1       |[0m 2020-01-17 14:59:45.784 UTC [30] ERROR:  column "id" cannot be cast automatically to type integer
+[33mdb_1       |[0m 2020-01-17 14:59:45.784 UTC [30] HINT:  You might need to specify "USING id::integer".
+[33mdb_1       |[0m 2020-01-17 14:59:45.784 UTC [30] STATEMENT:  ALTER TABLE heater ALTER id TYPE INT
+[36;1mclient_1   |[0m Compiled successfully!
+[36;1mclient_1   |[0m 
+[36;1mclient_1   |[0m You can now view client in the browser.
+[36;1mclient_1   |[0m 
+[36;1mclient_1   |[0m   Local:            https://localhost:3000/
+[36;1mclient_1   |[0m   On Your Network:  https://172.20.0.7:3000/
+[36;1mclient_1   |[0m 
+[36;1mclient_1   |[0m Note that the development build is not optimized.
+[36;1mclient_1   |[0m To create a production build, use yarn build.
+[36;1mclient_1   |[0m 
+[31mphp_1      |[0m 127.0.0.1 -  17/Jan/2020:14:59:50 +0000 "GET /ping" 200
+[31mphp_1      |[0m 127.0.0.1 -  17/Jan/2020:15:00:00 +0000 "GET /ping" 200
+[33;1madmin_1    |[0m Compiled successfully!
+[33;1madmin_1    |[0m 
+[33;1madmin_1    |[0m You can now view admin in the browser.
+[33;1madmin_1    |[0m 
+[33;1madmin_1    |[0m   Local:            https://localhost:3000/
+[33;1madmin_1    |[0m   On Your Network:  https://172.20.0.8:3000/
+[33;1madmin_1    |[0m 
+[33;1madmin_1    |[0m Note that the development build is not optimized.
+[33;1madmin_1    |[0m To create a production build, use yarn build.
+[33;1madmin_1    |[0m 
+[31mphp_1      |[0m 127.0.0.1 -  17/Jan/2020:15:00:10 +0000 "GET /ping" 200
+[33mdb_1       |[0m 2020-01-17 15:00:20.619 UTC [34] ERROR:  column "id" cannot be cast automatically to type integer
+[33mdb_1       |[0m 2020-01-17 15:00:20.619 UTC [34] HINT:  You might need to specify "USING id::integer".
+[33mdb_1       |[0m 2020-01-17 15:00:20.619 UTC [34] STATEMENT:  ALTER TABLE heater ALTER id TYPE INT
+[31mphp_1      |[0m 127.0.0.1 -  17/Jan/2020:15:00:21 +0000 "GET /ping" 200
+[31mphp_1      |[0m 127.0.0.1 -  17/Jan/2020:15:00:31 +0000 "GET /ping" 200
+[35mapiplatformiot_mercure_1 exited with code 2
+[0m[32;1mapiplatformiot_vulcain_1 exited with code 2
+[0m[32mapiplatformiot_socket_1 exited with code 1
+[0m[36;1mapiplatformiot_client_1 exited with code 1
+[0m[33;1mapiplatformiot_admin_1 exited with code 1
+[0m[34mapiplatformiot_api_1 exited with code 0
+[0m[31mphp_1      |[0m [17-Jan-2020 15:00:35] NOTICE: Finishing ...
+[31mphp_1      |[0m [17-Jan-2020 15:00:35] NOTICE: exiting, bye-bye!
+[36mapiplatformiot_dev-tls_1 exited with code 0
+[0m[31mapiplatformiot_php_1 exited with code 0
+[0m[33mdb_1       |[0m 2020-01-17 15:00:35.410 UTC [1] LOG:  received smart shutdown request
+[33mdb_1       |[0m 2020-01-17 15:00:35.413 UTC [1] LOG:  background worker "logical replication launcher" (PID 26) exited with exit code 1
+[33mdb_1       |[0m 2020-01-17 15:00:35.413 UTC [21] LOG:  shutting down
+[33mdb_1       |[0m 2020-01-17 15:00:35.477 UTC [1] LOG:  database system is shut down
+[33mapiplatformiot_db_1 exited with code 0
+[0m
