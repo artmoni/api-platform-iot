@@ -9,6 +9,28 @@ var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
 });
 
+function registrationSettings(address) {
+
+  console.log(`REGISTRATION - A new node have been identified`)
+
+  var frameJoinNotif = {
+    type: C.FRAME_TYPE.REMOTE_AT_COMMAND_REQUEST,
+    destination64: address,
+    command: "JN",
+    commandParameter: [1],
+  }
+
+  xbeeAPI.builder.write(frameJoinNotif);
+
+  console.log("Registration commands sent successfully");
+
+  // Registration of the new node
+  openingStatus.set(frame.sender64, !openingStatus.get(frame.sender16))
+
+
+  console.log('REGISTRATION - Registration complete')
+}
+
 
   let serialport = new SerialPort("COM3", {
     baudRate: 9600,
@@ -40,9 +62,10 @@ var xbeeAPI = new xbee_api.XBeeAPI({
 
   });
 
+
 // All frames parsed by the XBee will be emitted here
 
-  xbeeAPI.parser.on("data", function (frame) {
+xbeeAPI.parser.on("data", function (frame) {
 
     //on new device is joined, register it
 
@@ -60,21 +83,18 @@ var xbeeAPI = new xbee_api.XBeeAPI({
     }
 
     if (C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type) {
-      console.log(`EVENT - The opening status ${frame.sender16} has changed`)
-
-      // Test if this opening is registered. If not, register it in open state
-      if (openingStatus.has(frame.sender16)) {
-        openingStatus.set(frame.sender16, !openingStatus.get(frame.sender16))
-      } else {
-        openingStatus.set(frame.sender16, true)
-      }
-
-      console.log("OBJ> " + frame);
-      console.log("OBJ> " + util.inspect(frame));
-
+      registrationSettings(frame.sender64);
 
     } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
 
+      console.log(`EVENT - The opening status ${frame.sender16} has changed`)
+
+      // Test if this opening is registered. If not, register it in open state
+      if (openingStatus.has(frame.sender64)) {
+        openingStatus.set(frame.sender64, !openingStatus.get(frame.sender16))
+      } else {
+       registrationSettings();
+      }
 
 
     } else if (C.FRAME_TYPE.REMOTE_COMMAND_RESPONSE === frame.type) {
