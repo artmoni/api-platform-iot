@@ -39,6 +39,11 @@ class Opening
      */
     private $heaters;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $opened;
+
     public function __construct()
     {
         $this->heaters = new ArrayCollection();
@@ -95,6 +100,18 @@ class Opening
         if ($this->heaters->contains($heater)) {
             $this->heaters->removeElement($heater);
         }
+
+        return $this;
+    }
+
+    public function getOpened(): ?bool
+    {
+        return $this->opened;
+    }
+
+    public function setOpened(bool $opened): self
+    {
+        $this->opened = $opened;
 
         return $this;
     }
