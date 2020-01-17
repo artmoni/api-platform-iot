@@ -64,3 +64,40 @@ Pour résoudre ce probleme :
     npm start
 
     ```
+ 
+## Bug Tips
+####postgres Docker image is not creating database with custom name
+
+
+à partir de Windows family docker toolbox peut engendrer des problèmes avec le lancement de la base de données postgresql
+
+
+Pour résoudre ce problème:
+
+1) Supprimer le volume ou est stocké le container qui gère la base de donneée
+```
+docker volume rm <nom-du-volume>
+```
+2.supprimer tous les processus docker et redémarrer son docker
+
+3.relancer vos container docker
+```
+docker-compose build
+docker-compose up
+```
+
+#### Error: dupplicate mount point
+
+Plusieurs  processus docker sont lancés sur la machines et engendre des conflits 
+
+ Pour résoudre ce problème:
+ 1) Supprimer tous les processus Docker
+ 
+ 2) vérifier quel processus utilise le port 80
+ ``
+ netstat -ab
+ ``
+ 3) Supprimer les processus qui engendre un conflit et redémarrer son docker
+ 
+ 
+ 
