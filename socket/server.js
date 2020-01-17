@@ -1,87 +1,95 @@
 const io = require('socket.io')();
 var SerialPort = require('serialport');
+var util = require("util");
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
-var doorStatus = new Map();
+
+var openingStatus = new Map();
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
 });
 
 
-let serialport = new SerialPort("/dev/ttyUSB1", {
-  baudRate: 9600,
-}, function (err) {
-  if (err) {
-    return console.log('Error: ', err.message)
-  }
-});
+  let serialport = new SerialPort("COM3", {
+    baudRate: 9600,
+  }, function (err) {
+    if (err) {
+      return console.log('Error: ', err.message)
+    }
+  });
 
-serialport.pipe(xbeeAPI.parser);
-xbeeAPI.builder.pipe(serialport);
+  serialport.pipe(xbeeAPI.parser);
+  xbeeAPI.builder.pipe(serialport);
 
-serialport.on("open", function () {
-  var frame_obj = { // AT Request to be sent
-    type: C.FRAME_TYPE.AT_COMMAND,
-    command: "NI",
-    commandParameter: [],
-  };
+  serialport.on("open", function () {
+    var frame_obj = { // AT Request to be sent
+      type: C.FRAME_TYPE.AT_COMMAND,
+      command: "NI",
+      commandParameter: [],
+    };
 
-  xbeeAPI.builder.write(frame_obj);
+    xbeeAPI.builder.write(frame_obj);
 
-  frame_obj = { // AT Request to be sent
-    type: C.FRAME_TYPE.REMOTE_AT_COMMAND_REQUEST,
-    destination64: "FFFFFFFFFFFFFFFF",
-    command: "NI",
-    commandParameter: [],
-  };
-  xbeeAPI.builder.write(frame_obj);
+    frame_obj = { // AT Request to be sent
+      type: C.FRAME_TYPE.REMOTE_AT_COMMAND_REQUEST,
+      destination64: "FFFFFFFFFFFFFFFF",
+      command: "NI",
+      commandParameter: [],
+    };
+    xbeeAPI.builder.write(frame_obj);
 
-});
+  });
 
 // All frames parsed by the XBee will be emitted here
 
-xbeeAPI.parser.on("data", function (frame) {
+  xbeeAPI.parser.on("data", function (frame) {
 
-  //on new device is joined, register it
+    //on new device is joined, register it
 
-  //on packet received, dispatch event
-  //let dataReceived = String.fromCharCode.apply(null, frame.data);
-  if (C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET === frame.type) {
-    console.log("C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET");
-    let dataReceived = String.fromCharCode.apply(null, frame.data);
-    console.log(">> ZIGBEE_RECEIVE_PACKET >", dataReceived);
+    //on packet received, dispatch event
+    //let dataReceived = String.fromCharCode.apply(null, frame.data);
+    if (C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET === frame.type) {
+      console.log("C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET");
+      let dataReceived = String.fromCharCode.apply(null, frame.data);
+      console.log(">> ZIGBEE_RECEIVE_PACKET >", dataReceived);
 
-    browserClient && browserClient.emit('pad-event', {
-      device: frame.remote64,
-      data: dataReceived
-    });
-  }
+      browserClient && browserClient.emit('pad-event', {
+        device: frame.remote64,
+        data: dataReceived
+      });
+    }
 
-  if (C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type) {
-    // let dataReceived = String.fromCharCode.apply(null, frame.nodeIdentifier);
-    console.log(">> ZIGBEE_RECEIVE_PACKET >", frame.data);
-    xbee_adress64 = frame.remote64;
-    doorList.set(xbee_adress64, false);
-    xbee_adress16 = frame.remote16;
-    
+    if (C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type) {
+      console.log(`EVENT - The opening status ${frame.sender16} has changed`)
 
-  } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
+      // Test if this opening is registered. If not, register it in open state
+      if (openingStatus.has(frame.sender16)) {
+        openingStatus.set(frame.sender16, !openingStatus.get(frame.sender16))
+      } else {
+        openingStatus.set(frame.sender16, true)
+      }
+
+      console.log("OBJ> " + frame);
+      console.log("OBJ> " + util.inspect(frame));
+
+
+    } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
 
 
 
-  } else if (C.FRAME_TYPE.REMOTE_COMMAND_RESPONSE === frame.type) {
-    
-  } else {
-    console.debug(frame);
-    let dataReceived = String.fromCharCode.apply(null, frame.commandData)
-    console.log(dataReceived);
-  }
+    } else if (C.FRAME_TYPE.REMOTE_COMMAND_RESPONSE === frame.type) {
 
-});
-let browserClient;
-io.on('connection', (client) => {
-  console.log(client.client.id);
-  browserClient = client;
+    } else {
+      console.debug(frame);
+      let dataReceived = String.fromCharCode.apply(null, frame.commandData)
+      console.log(dataReceived);
+    }
+
+  });
+  let browserClient;
+  io.on('connection', (client) => {
+    console.log(client.client.id);
+    browserClient = client;
 
   client.on('subscribeToPad', (interval) => {
     console.log('client is subscribing to timer with interval ', interval);
