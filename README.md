@@ -66,7 +66,7 @@ Pour résoudre ce probleme :
     ```
  
 ## Bug Tips
-####postgres Docker image is not creating database with custom name
+#### postgres Docker image is not creating database with custom name
 
 
 à partir de Windows family docker toolbox peut engendrer des problèmes avec le lancement de la base de données postgresql
@@ -101,3 +101,18 @@ Plusieurs  processus docker sont lancés sur la machines et engendre des conflit
  
  
  
+ ## Description fonctionnelle
+ 
+ L'application peut-être découpées en 4 éléments :
+ 
+ 1. Le socket qui détecte l'ouverture et fermeture des portes.
+ 
+ 2. L'API node.js qui récupère, traite et stock ces données. 
+ 
+ 3. La l'API php symfony qui s'occupe de récupérer les données, de stocker et d'afficher dans la section client.
+ 
+ 4. Client react native qui affiche les données aux utilisateurs.
+ 
+ ## Amélioration
+ 
+ 1.Réalisation d'un timer qui calcul le temps d'ouverture des portes et fenêtres.
