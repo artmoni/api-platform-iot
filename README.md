@@ -45,6 +45,10 @@ docker-compose up
 3) Vérifier que les containers sont bien lancés :
 ```docker ps```
 
+### Diagramme de classe
+
+<img src="https://zupimages.net/up/20/03/037m.png"/>
+
 #### Disclaimer !
 
 Il est impossible pour le container docker possédant node.js d'accéder aux ports COM.
@@ -101,6 +105,7 @@ Plusieurs  processus docker sont lancés sur la machines et engendre des conflit
  
  
  
+
  ## Description fonctionnelle
  
  L'application peut-être découpées en 4 éléments :
@@ -113,6 +118,3 @@ Plusieurs  processus docker sont lancés sur la machines et engendre des conflit
  
  4. Client react native qui affiche les données aux utilisateurs.
  
- ## Amélioration
- 
- 1.Réalisation d'un timer qui calcul le temps d'ouverture des portes et fenêtres.
