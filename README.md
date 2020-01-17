@@ -103,15 +103,15 @@ Plusieurs  processus docker sont lancés sur la machines et engendre des conflit
  
  ## Réalisations
  
- L'applications peut être découpés en 4 section:
+ L'applications peut être découpés en 4 élements :
  
- 1. La section physique qui transforme la donnée analogique d'ouverture/fermeture en information numérique 
+ 1. Le socket détecte l'ouverture et fermeture des portes
  
- 2. La section d'interface qui récupère traite et stock cette donnée 
+ 2. L'api node.js  récupère traite et stock cette donnée 
  
- 3. La section serveur qui s'occupe récupérer la donnée stocker et l'afficher dans la section  cliente
+ 3. La l'api php symfony qui s'occupe récupérer la donnée stocker et l'afficher dans la section client
  
- 4. La section client affiche les données aux utilisateurs
+ 4. client react native affiche les données aux utilisateurs
  
  ## Amélioration
  
