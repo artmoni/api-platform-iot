@@ -66,7 +66,7 @@ Pour résoudre ce probleme :
     ```
  
 ## Bug Tips
-####postgres Docker image is not creating database with custom name
+#### postgres Docker image is not creating database with custom name
 
 
 à partir de Windows family docker toolbox peut engendrer des problèmes avec le lancement de la base de données postgresql
@@ -101,3 +101,18 @@ Plusieurs  processus docker sont lancés sur la machines et engendre des conflit
  
  
  
+ ## Réalisations
+ 
+ L'applications peut être découpés en 4 section:
+ 
+ 1. La section physique qui transforme la donnée analogique d'ouverture/fermeture en information numérique 
+ 
+ 2. La section d'interface qui récupère traite et stock cette donnée 
+ 
+ 3. La section serveur qui s'occupe récupérer la donnée stocker et l'afficher dans la section  cliente
+ 
+ 4. La section client affiche les données aux utilisateurs
+ 
+ ## Amélioration
+ 
+ 1. réalisation d'un timer qui calcul le temps d'ouverture des portes 
