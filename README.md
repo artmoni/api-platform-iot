@@ -147,15 +147,25 @@ Plusieurs  processus docker sont lancés sur la machines et engendre des conflit
  
  
 
- ## Description fonctionnelle
+ ## Description des composants
  
  L'application peut-être découpées en 4 éléments :
  
- 1. Le socket qui détecte l'ouverture et fermeture des portes.
+ 1. Le composant socket - NODEJS :
+    * Gère les frames reçues et envoyées par le coordinateur
+    * Déclanche le processus d'enregistrement d'une ouverture (En envoyant une requête au composant API)
+    * Déclanche le process de changement d'une porte (En envoyant une requête au composant API)
+    * [WIP] Relance et éteint les radiateurs
  
- 2. L'API node.js qui récupère, traite et stock ces données. 
+ 2. Le composant api - PHP/Symfony :
+    * Permet la création, modification, suppression d'une ouverture
+    * Permet la création, modification, suppression d'un radiateur
+    * Permet de gérer les liaisons entre un radiateur et des ouvertures
+
  
- 3. La l'API php symfony qui s'occupe de récupérer les données, de stocker et d'afficher dans la section client.
+ 3. Le composant admin - ReactJS :
+    * Permet l'administration de notre plateforme
  
- 4. Client react native qui affiche les données aux utilisateurs.
+ 4. Le composant client - ReactJS :
+    * [WIP]
  
