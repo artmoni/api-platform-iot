@@ -3,14 +3,17 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * This is an opening which could impact the room temperature. Usually, the opening leads outside.
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\OpeningRepository")
+ * @ApiFilter(SearchFilter::class, properties={"adress64": "exact"})
  */
 class Opening
 {
