@@ -21,6 +21,47 @@ habitation lorsqu'une fenêtre ou une porte est ouverte.
 
 * CE : Coordinator Enblaed -> Enable
 
+## Endpoints de l'API
+
+### Heater
+
+Un Heater est un objet représentant un élement qui chauffe ou refroidit une pièce, tel qu'un poêle à bois, un radiateur, une climatisation...
+
+| Protocole | Url   | Description                          | Paramètres                                                                                           |
+|-----------|-------|--------------------------------------|------------------------------------------------------------------------------------------------------|
+| GET       | /heaters/     | Récupère tout les radiateurs         |                                                                                                      |
+| POST      | /heaters/     | Créé un nouveau radiateur            | * name (string): Nom du chauffage (facultatif)<br>* adress64 (string): Adresse MAC du XBee              |
+| GET       | /heaters/[id] | Récupère le radiateur avec l'ID [id] |                                                                                                      |
+| PUT       | /heaters/[id] | Remplace le radiateur à l'ID [id]    | * name (string): Nom du chauffage (facultatif)<br>* adress64 (string): Adresse MAC du XBee              |
+| DELETE    | /heaters/[id] | Supprime le radiateur avec l'ID [id] |                                                                                                      |
+| PATCH     | /heaters/[id] | Modifie le radiateur à l'ID [id]     | * name (string): Nom du chauffage (facultatif)<br>* adress64 (string): Adresse MAC du XBee (facultatif) |
+
+### Opening
+
+Un Opening est un objet représentant une ouverture quelconque, que ce soit une porte, une fenêtre, une baie vitrée...
+
+| Protocole | Url            | Description                         | Paramètres                                                                                                                                                                                                                                  |
+|-----------|----------------|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| GET       | /openings/     | Récupère toutes les ouvertures      |                                                                                                                                                                                                                                             |
+| POST      | /openings/     | Créé une nouvelle ouverture         | * name (string): Nom de l'ouverture (facultatif) <br>* adress64 (string): Adresse MAC du XBee associée à l'ouverture <br>* opened (boolean): Etat de l'ouverture, avec ```true``` un état ouvert et ```false``` un état fermé.              |                                                                        | 
+| GET       | /openings/[id] | Récupère l'ouverture avec l'ID [id] |                                                                                                                                                                                                                                                                                                                                                                                                             |
+| PUT       | /openings/[id] | Remplace l'ouverture à l'ID [id]    | * name (string): Nom de l'ouverture (facultatif) <br>* adress64 (string): Adresse MAC du XBee associée à l'ouverture <br>* opened (boolean): Etat de l'ouverture, avec ```true``` un état ouvert et  ```false``` un état fermé.             |
+| DELETE    | /openings/[id] | Supprime l'ouverture avec l'ID [id] |                                                                                                                                                                                                                                             |
+| PATCH     | /openings/[id] | Modifie l'ouverture à l'ID [id]     | * name (string): Nom de l'ouverture (facultatif) <br>* adress64 (string): Adresse MAC du XBee associée à l'ouverture(facultatif) <br>* opened (boolean): Etat de l'ouverture, avec ```true``` un état ouvert et  ```false``` un état fermé. (facultatif) |
+
+### Link
+
+Un link est un objet connectant un Heater à un Opening.
+
+| Protocole | Url         | Description                     | Paramètres                                                                                                                         |
+|-----------|-------------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| GET       | /links/     | Récupère toutes les liens       |                                                                                                                                    |
+| POST      | /links/     | Créé un nouveau lien            | * adressHeater: Adresse MAC du XBee du chauffage <br>* adressOpening: Adresse MAC du XBee de l'ouverture                           |
+| GET       | /links/[id] | Récupère le lien avec l'ID [id] |                                                                                                                                    |
+| PUT       | /links/[id] | Remplace le lien à l'ID [id]    | * adressHeater: Adresse MAC du XBee du chauffage <br>* adressOpening: Adresse MAC du XBee de l'ouverture                           |
+| DELETE    | /links/[id] | Supprime le lien avec l'ID [id] |                                                                                                                                    |
+| PATCH     | /links/[id] | Modifie le lien à l'ID [id]     | * adressHeater: Adresse MAC du XBee du chauffage (facultatif) <br>* adressOpening: Adresse MAC du XBee de l'ouverture (facultatif) |
+
 ## Environnement de développement
 
 ### Pré-requis
