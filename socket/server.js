@@ -39,19 +39,22 @@ function registrationSettings(address) {
   // Registration of the new node
   openingStatus.set(address, !openingStatus.get(address))
 
+  console.log(address);
   // Send the new opening to api
   request.post('https://localhost:8443/openings', {
-    "name": "ouverture_1_test",
-    "address64": address,
-    "heaters": [],
-    "opened": true,
-  }, function(error, response, body) {
-    if (error) {
-      console.log("Registration failed: " + error);
-    } else {
-      console.log("Registration is successful")
+    json: {
+      name: "ouverture_1_test",
+      adress64: address,
+      opened: false,
     }
-  });
+  }, (error, res, body) => {
+    if (error) {
+      console.error(error)
+      return
+    }
+
+    console.log('This node has been registered')
+  })
 
 }
 
@@ -102,10 +105,10 @@ xbeeAPI.parser.on("data", function (frame) {
     console.log(`EVENT - The opening status ${frame.sender16} has changed`)
 
     // Test if this opening is registered. If not, register it in open state
-    if (openingStatus.has(frame.sender64)) {
-      openingStatus.set(frame.sender64, !openingStatus.get(frame.sender16))
+    if (openingStatus.has(frame.remote64)) {
+      openingStatus.set(frame.remote64, !openingStatus.get(frame.remote64))
     } else {
-     registrationSettings();
+      registrationSettings(frame.remote64);
     }
 
 
