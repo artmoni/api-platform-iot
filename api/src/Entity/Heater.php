@@ -33,12 +33,6 @@ class Heater
      */
     private $adress64;
 
-    /**
-     * The openings which affects the element. Usually, the doors and windows in the same room as the element.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Opening", mappedBy="heaters")
-     */
-    private $openings;
-
     public function __construct()
     {
         $this->openings = new ArrayCollection();
@@ -69,34 +63,6 @@ class Heater
     public function setAdress64(string $adress64): self
     {
         $this->adress64 = $adress64;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Opening[]
-     */
-    public function getOpenings(): Collection
-    {
-        return $this->openings;
-    }
-
-    public function addOpening(Opening $opening): self
-    {
-        if (!$this->openings->contains($opening)) {
-            $this->openings[] = $opening;
-            $opening->addHeater($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOpening(Opening $opening): self
-    {
-        if ($this->openings->contains($opening)) {
-            $this->openings->removeElement($opening);
-            $opening->removeHeater($this);
-        }
 
         return $this;
     }

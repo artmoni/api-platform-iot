@@ -34,12 +34,6 @@ class Opening
     private $adress64;
 
     /**
-     * The heaters/cooling devices that are impacted by the opening.
-     * @ORM\ManyToMany(targetEntity="App\Entity\Heater", inversedBy="openings")
-     */
-    private $heaters;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $opened;
@@ -74,32 +68,6 @@ class Opening
     public function setAdress64(string $adress64): self
     {
         $this->adress64 = $adress64;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Heater[]
-     */
-    public function getHeaters(): Collection
-    {
-        return $this->heaters;
-    }
-
-    public function addHeater(Heater $heater): self
-    {
-        if (!$this->heaters->contains($heater)) {
-            $this->heaters[] = $heater;
-        }
-
-        return $this;
-    }
-
-    public function removeHeater(Heater $heater): self
-    {
-        if ($this->heaters->contains($heater)) {
-            $this->heaters->removeElement($heater);
-        }
 
         return $this;
     }
