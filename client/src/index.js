@@ -18,7 +18,7 @@ import * as serviceWorker from './serviceWorker';
 import Welcome from './Welcome';
 import heater from './reducers/heater/';
 import heaterRoutes from './routes/heater';
-
+    
 const history = createBrowserHistory();
 const store = createStore(
   combineReducers({
@@ -34,7 +34,7 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <Switch>
         <Route path="/" component={Welcome} strict={true} exact={true}/>
-        {heaterRoutes}
+          {heaterRoutes}
         <Route render={() => <h1>Not Found</h1>} />
       </Switch>
     </ConnectedRouter>
