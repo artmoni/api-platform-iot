@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * This is a heating/cooling element.
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\HeaterRepository")
+ * @UniqueEntity("adress64")
  */
 class Heater
 {

@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\OpeningRepository")
  * @ApiFilter(SearchFilter::class, properties={"adress64": "exact"})
+ * @UniqueEntity("adress64")
  */
 class Opening
 {
