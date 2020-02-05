@@ -16,13 +16,23 @@ import 'font-awesome/css/font-awesome.css';
 import * as serviceWorker from './serviceWorker';
 // Import your reducers and routes here
 import Welcome from './Welcome';
+import heater from './reducers/heater/';
+import heaterRoutes from './routes/heater';
+import link from './reducers/link/';
+import linkRoutes from './routes/link';
+import opening from './reducers/opening/';
+import openingRoutes from './routes/opening';
+
+
 
 const history = createBrowserHistory();
 const store = createStore(
   combineReducers({
     router: connectRouter(history),
     form,
-    /* Add your reducers here */
+    heater,
+      link,
+      opening,
   }),
   applyMiddleware(routerMiddleware(history), thunk)
 );
@@ -32,7 +42,9 @@ ReactDOM.render(
     <ConnectedRouter history={history}>
       <Switch>
         <Route path="/" component={Welcome} strict={true} exact={true}/>
-        {/* Add your routes here */}
+          {heaterRoutes}
+          {linkRoutes}
+          {openingRoutes}
         <Route render={() => <h1>Not Found</h1>} />
       </Switch>
     </ConnectedRouter>
@@ -44,3 +56,5 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
+
+

@@ -1,14 +1,16 @@
 const io = require('socket.io')();
 var SerialPort = require('serialport');
+var util = require("util");
+var request = require("request").defaults({rejectUnauthorized:false});
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
 
+var openingStatus = new Map();
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
 });
 
-
-let serialport = new SerialPort("/dev/ttyUSB1", {
+let serialport = new SerialPort("COM4", {
   baudRate: 9600,
 }, function (err) {
   if (err) {
@@ -18,6 +20,43 @@ let serialport = new SerialPort("/dev/ttyUSB1", {
 
 serialport.pipe(xbeeAPI.parser);
 xbeeAPI.builder.pipe(serialport);
+
+function registrationSettings(address) {
+
+  console.log(`REGISTRATION - A new node have been identified`)
+
+  var frameJoinNotif = {
+    type: C.FRAME_TYPE.REMOTE_AT_COMMAND_REQUEST,
+    destination64: address,
+    command: "JN",
+    commandParameter: [1],
+  }
+
+  xbeeAPI.builder.write(frameJoinNotif);
+
+  console.log("Registration commands sent successfully");
+
+  // Registration of the new node
+  openingStatus.set(address, !openingStatus.get(address))
+
+  console.log(address);
+  // Send the new opening to api
+  request.post('https://localhost:8443/openings', {
+    json: {
+      name: "ouverture_1_test",
+      adress64: address,
+      opened: false,
+    }
+  }, (error, res, body) => {
+    if (error) {
+      console.error(error)
+      return
+    }
+
+    console.log('This node has been registered')
+  })
+
+}
 
 serialport.on("open", function () {
   var frame_obj = { // AT Request to be sent
@@ -37,6 +76,7 @@ serialport.on("open", function () {
   xbeeAPI.builder.write(frame_obj);
 
 });
+
 
 // All frames parsed by the XBee will be emitted here
 
@@ -58,16 +98,22 @@ xbeeAPI.parser.on("data", function (frame) {
   }
 
   if (C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type) {
-    // let dataReceived = String.fromCharCode.apply(null, frame.nodeIdentifier);
-    // console.log(">> ZIGBEE_RECEIVE_PACKET >", frame);
-
+    registrationSettings(frame.sender64);
 
   } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
 
+    console.log(`EVENT - The opening status ${frame.sender16} has changed`)
+
+    // Test if this opening is registered. If not, register it in open state
+    if (openingStatus.has(frame.remote64)) {
+      openingStatus.set(frame.remote64, !openingStatus.get(frame.remote64))
+    } else {
+      registrationSettings(frame.remote64);
+    }
 
 
   } else if (C.FRAME_TYPE.REMOTE_COMMAND_RESPONSE === frame.type) {
-    
+
   } else {
     console.debug(frame);
     let dataReceived = String.fromCharCode.apply(null, frame.commandData)
@@ -80,16 +126,16 @@ io.on('connection', (client) => {
   console.log(client.client.id);
   browserClient = client;
 
-  client.on('subscribeToPad', (interval) => {
-    console.log('client is subscribing to timer with interval ', interval);
-    // setInterval(() => {
-    //   client.emit('pad-event', {
-    //     device: "test device",
-    //     data: Math.round(Math.random()) * 2 - 1
-    //   })
-    //   ;
-    // }, Math.random() * 1000);
-  });
+client.on('subscribeToPad', (interval) => {
+  console.log('client is subscribing to timer with interval ', interval);
+  // setInterval(() => {
+  //   client.emit('pad-event', {
+  //     device: "test device",
+  //     data: Math.round(Math.random()) * 2 - 1
+  //   })
+  //   ;
+  // }, Math.random() * 1000);
+});
 
   client.on("disconnect", () => {
     console.log("Client disconnected");
