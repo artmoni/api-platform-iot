@@ -13,6 +13,11 @@ class PlayerFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
+        $this->newLine($manager, "0013A20041A72956", "");
+        $this->newLine($manager, "0013A2004147961D", "");
+        $this->newLine($manager, "macAddr3", "");
+        $this->newLine($manager, "macAddr4", "");
+
 
         $manager->flush();
     }
