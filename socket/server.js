@@ -3,6 +3,7 @@ var SerialPort = require('serialport');
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
 var remotePad = require('./remotePad');
+const { addPlayer, getListGame } = require('./requestRemote');
 
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
@@ -83,6 +84,9 @@ console.log(remotePad);
     console.debug("FRAME :", frame);
     let dataReceived = String.fromCharCode.apply(null, frame.commandData);
     console.log(">> dataReceived >",  dataReceived);
+
+    console.log(getListGame());
+    console.log(addPlayer());
   }
 
 });
