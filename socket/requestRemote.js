@@ -1,19 +1,18 @@
 const axios = require('axios');
 
+
 module.exports =  {
 
   addPlayer: () => {
     // Send a POST request
     axios({
       method: 'post',
-      url: 'https://localhost:8443/players',
+      url: 'https://localhost:8443/greetings',
       data: {
-        macAddress: 'Fred',
-        game: 'Test'
+        name: 'Anto'
       }
     })
   },
-
 
   getListGame: () => {
     axios.get('https://localhost:8443/greetings?page=1')
@@ -24,7 +23,6 @@ module.exports =  {
         console.log(error);
     })
   },
-
 }
 
 

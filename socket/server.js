@@ -4,6 +4,8 @@ var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
 var remotePad = require('./remotePad');
 const { addPlayer, getListGame } = require('./requestRemote');
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
 
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
