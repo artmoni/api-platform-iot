@@ -7,11 +7,17 @@ module.exports =  {
     // Send a POST request
     axios({
       method: 'post',
-      url: 'https://localhost:8443/greetings',
+      url: 'https://localhost:8443/players',
       data: {
-        name: 'Anto'
+        //data
       }
     })
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
   },
 
   getListGame: () => {
