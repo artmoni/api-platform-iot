@@ -3,16 +3,6 @@ const axios = require('axios');
 
 module.exports =  {
 
-  getListGame: () => {
-    axios.get('https://localhost:8443/games')
-      .then(function (response) {
-        console.log(response.data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-  },
-
   addGame: () => {
     // Send a POST request
     axios({
@@ -23,6 +13,16 @@ module.exports =  {
         "maxPlayer": 10
       }
     })
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  },
+
+  getListGame: () => {
+    axios.get('https://localhost:8443/games')
       .then(function (response) {
         console.log(response.data);
       })
