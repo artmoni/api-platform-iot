@@ -3,7 +3,7 @@ var SerialPort = require('serialport');
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
 var remotePad = require('./remotePad');
-const { addPlayer, getListGame, addGame } = require('./requestRemote');
+const { addGame, getListGame, addPlayer, getListPlayer } = require('./requestRemote');
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 
@@ -87,9 +87,10 @@ console.log(remotePad);
     let dataReceived = String.fromCharCode.apply(null, frame.commandData);
     console.log(">> dataReceived >",  dataReceived);
 
+    //console.log(addGame());
     //console.log(getListGame());
     //console.log(addPlayer());
-    console.log(addGame());
+    console.log(getListPlayer());
   }
 
 });

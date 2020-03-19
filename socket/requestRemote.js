@@ -3,13 +3,23 @@ const axios = require('axios');
 
 module.exports =  {
 
+  getListGame: () => {
+    axios.get('https://localhost:8443/games')
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+  },
+
   addGame: () => {
     // Send a POST request
     axios({
       method: 'post',
       url: 'https://localhost:8443/games',
       data: {
-        "name": "adrienTestGame2",
+        "name": "adrienTestGame4hg",
         "maxPlayer": 10
       }
     })
@@ -27,7 +37,8 @@ module.exports =  {
       method: 'post',
       url: 'https://localhost:8443/players',
       data: {
-        //data
+        "macAddress": "0013A2004147961D",
+        "game": "adrienTestGame3"
       }
     })
       .then(function (response) {
@@ -38,14 +49,14 @@ module.exports =  {
       })
   },
 
-  getListGame: () => {
-    axios.get('https://localhost:8443/greetings?page=1')
+  getListPlayer: () => {
+    axios.get('https://localhost:8443/players')
       .then(function (response) {
         console.log(response.data);
       })
       .catch(function (error) {
         console.log(error);
-    })
+      })
   },
 }
 
