@@ -64,9 +64,14 @@ xbeeAPI.parser.on("data", function (frame) {
 
 
   } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
-console.log(">> ZIGBEE_IO_DATA_SAMPLE_RX >", frame);
+console.log(">> ZIGBEE_IO_DATA_SAMPLE_RX FRAME>", frame);
+
 
 remotePad.macAddress = frame.remote64;
+
+remotePad.btn1 = frame.digitalSamples[C.DIGITAL_CHANNELS.MASK[1][0]];
+remotePad.btn2 = frame.digitalSamples[C.DIGITAL_CHANNELS.MASK[2][0]];
+remotePad.btn3 = frame.digitalSamples[C.DIGITAL_CHANNELS.MASK[3][0]];
 
 console.log(remotePad);
 
