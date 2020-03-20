@@ -9,12 +9,14 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class GameFixtures extends Fixture
 {
+
+
     public function load(ObjectManager $manager)
     {
         // $product = new Product();
         // $manager->persist($product);
-        $this->newLine($manager, "Culture", "10");
-        $this->newLine($manager, "Nerd", "");
+        $this->newLine($manager, "Culture", 10);
+        $this->newLine($manager, "Nerd", 10);
 
 
         $manager->flush();
