@@ -19,16 +19,17 @@ const firebaseConfig = {
   appId: "1:55028690349:web:6202ffcdb657574c2d0524"
 }
 const rrfConfig = {
-  userProfile: 'sensors'
+  userProfile: 'sensors',
   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
 }
 
 firebase.initializeApp(firebaseConfig)
-firebase.firestore() // <- needed if using firestore
+firebase.firestore()
+
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
-  firestore: firestoreReducer // <- needed if using firestore
+  firestore: firestoreReducer
 })
 
 const initialState = {}
@@ -42,13 +43,11 @@ const rrfProps = {
 }
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={store}>
       <ReactReduxFirebaseProvider {...rrfProps}>
         <App/>
       </ReactReduxFirebaseProvider>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById('root')
 );
 
