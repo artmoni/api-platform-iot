@@ -14,6 +14,9 @@
 }
 
 .App-header {
+    background-image: url('https://www.advantagepetcare.com.au/sites/g/files/adhwdz311/files/styles/paragraph_image/public/2019-08/cat-eating-out-of-bowl.jpg?itok=pV1TO2yC');
+    background-size: cover;
+    background-position: center;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;

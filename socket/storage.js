@@ -25,5 +25,25 @@ module.exports.registerSensor = async function (address) {
   })
 }
 
+module.exports.registerSample = async function (address, sample) {
 
+  const docRef = db.collection('sensors').doc(address)
+    .collection('samples').doc(Date.now().toString());
+
+  const data = {
+    value: sample,
+    date: Date.now(),
+  }
+  await docRef.set(data);
+
+
+}
+
+module.exports.listSensors = function () {
+
+  const docRef = db.collection('sensors');
+
+  return docRef.get()
+
+}
 
