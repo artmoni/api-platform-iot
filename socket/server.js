@@ -7,12 +7,15 @@ require('dotenv').config()
 
 const SERIAL_PORT = process.env.SERIAL_PORT;
 
+const hexaValueTurnOnLED = [0x05]
+const hexaValueTurnOffLED = [0x04]
+
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
 });
 
 let serialport = new SerialPort(SERIAL_PORT, {
-  baudRate: process.env.SERIAL_BAUDRATE || 9600,
+  baudRate: parseInt(process.env.SERIAL_BAUDRATE) || 9600,
 }, function (err) {
   if (err) {
     return console.log('Error: ', err.message)
@@ -25,20 +28,20 @@ xbeeAPI.builder.pipe(serialport);
 serialport.on("open", function () {
   var frame_obj = { // AT Request to be sent
     type: C.FRAME_TYPE.AT_COMMAND,
-    command: "NI",
-    commandParameter: [],
+    command: "D1",
+    commandParameter: [hexaValueTurnOnLED],
   };
 
   xbeeAPI.builder.write(frame_obj);
 
   frame_obj = { // AT Request to be sent
     type: C.FRAME_TYPE.REMOTE_AT_COMMAND_REQUEST,
-    destination64: "FFFFFFFFFFFFFFFF",
-    command: "NI",
-    commandParameter: [],
+    destination64: "0013A20041582EF0",
+    command: "D2",
+    commandParameter: [0x05],
   };
-  xbeeAPI.builder.write(frame_obj);
 
+  xbeeAPI.builder.write(frame_obj);
 });
 
 // All frames parsed by the XBee will be emitted here
@@ -71,6 +74,7 @@ xbeeAPI.parser.on("data", function (frame) {
 
   } else if (C.FRAME_TYPE.REMOTE_COMMAND_RESPONSE === frame.type) {
     console.log("REMOTE_COMMAND_RESPONSE")
+    console.log(frame.commandData.length)
   } else {
     console.debug(frame);
     let dataReceived = String.fromCharCode.apply(null, frame.commandData)
