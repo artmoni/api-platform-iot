@@ -11,13 +11,13 @@ import {Provider} from "react-redux";
 import 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCGqqXK82-j3aafkE23C32MddGcEFItoLs",
-  authDomain: "itescia-iot.firebaseapp.com",
-  projectId: "itescia-iot",
-  storageBucket: "itescia-iot.appspot.com",
-  messagingSenderId: "55028690349",
-  appId: "1:55028690349:web:6202ffcdb657574c2d0524"
-}
+  apiKey: "AIzaSyA2TvywgrLDkCovHJ0tg6Xl-JyM1xn_eo0",
+  authDomain: "iocaisse.firebaseapp.com",
+  projectId: "iocaisse",
+  storageBucket: "iocaisse.appspot.com",
+  messagingSenderId: "96577837334",
+  appId: "1:96577837334:web:c5434a29d845de2d539837"
+};
 const rrfConfig = {
   userProfile: 'sensors',
   // useFirestoreForProfile: true // Firestore for Profile instead of Realtime DB
