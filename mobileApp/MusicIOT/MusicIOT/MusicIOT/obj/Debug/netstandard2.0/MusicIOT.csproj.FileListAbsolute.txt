@@ -1,0 +1,15 @@
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\bin\Debug\netstandard2.0\MusicIOT.deps.json
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\bin\Debug\netstandard2.0\MusicIOT.dll
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\bin\Debug\netstandard2.0\MusicIOT.pdb
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\MusicIOT.csproj.AssemblyReference.cache
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\MusicIOT.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\MainPage.xaml.g.cs
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\MusicIOT.AssemblyInfoInputs.cache
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\MusicIOT.AssemblyInfo.cs
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\MusicIOT.csproj.CoreCompileInputs.cache
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\MusicIOT.dll
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\refint\MusicIOT.dll
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\MusicIOT.pdb
+C:\Users\Dev\source\repos\MusicIOT\MusicIOT\MusicIOT\obj\Debug\netstandard2.0\ref\MusicIOT.dll
