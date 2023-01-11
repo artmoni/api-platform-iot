@@ -10,6 +10,7 @@ const SERIAL_PORT = process.env.SERIAL_PORT;
 const hexaValueTurnOnLED = [0x05]
 const hexaValueTurnOffLED = [0x04]
 
+
 var xbeeAPI = new xbee_api.XBeeAPI({
   api_mode: 2
 });
@@ -28,8 +29,8 @@ xbeeAPI.builder.pipe(serialport);
 serialport.on("open", function () {
   var frame_obj = { // AT Request to be sent
     type: C.FRAME_TYPE.AT_COMMAND,
-    command: "D1",
-    commandParameter: [hexaValueTurnOnLED],
+    command: "D2",
+    commandParameter: [hexaValueTurnOffLED],
   };
 
   xbeeAPI.builder.write(frame_obj);

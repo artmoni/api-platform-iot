@@ -8,18 +8,15 @@ import {Card, CardContent, CardMedia, Chip, Grid, Typography} from "@material-ui
 function App() {
 
   const [datas, setDatas] = useState([])
-  // useFirestoreConnect(() => [{collection: "sensors/5190/samples", storeAs: "samples", where:['date', '<', Date.now()], }])
+
   useFirestoreConnect(() => [{
-    collection: "sensors/0013a20041a72961/samples",
-    storeAs: "samples",
-    // limit: 10,
-    // orderBy: ["date", "desc"]
-    // where: ['date', '>', Date.now()- (1000 * 60*10)]
+    collection: "Caisse",
+    storeAs: "caisse",
   }])
-  const samples = useSelector((state) => state.firestore.ordered.samples)
+  const samples = useSelector((state) => state.firestore.ordered.caisse)
 
   useEffect(() => {
-    console.log(samples?.length)
+    console.log("veev" + samples)
     if (samples)
       {
         const slice = samples
@@ -28,7 +25,7 @@ function App() {
         console.log(slice)
         setDatas(slice)
       }
-  }, [samples])
+  }, )
 
   const isEmpty = datas?.pop()?.y <= 100;
   const currentImage = isEmpty ?
@@ -45,11 +42,11 @@ function App() {
           borderRadius: 20,
         }}>Ma Gamelle Connectée
 
+          <p>{{samples}}</p>
 
         </p>
-        {isEmpty ?
-          <Chip label={'Bowl is empty'} color={"secondary"}/> :
-          <Chip label={'Bowl is full'} color={"primary"}/>}
+
+
       </header>
       <Grid
         container
