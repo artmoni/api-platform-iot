@@ -32,7 +32,6 @@ import CashRegisterMachine from "@/assets/cash-register-machine";
 
 const caissesData = useCollection(firestore.collection(db, 'caisse'))
 const test = () => {
-    console.log("montcul")
     let str = "";
     caissesData.data.value.forEach((data) => {
         if (data.disponibilite && data.isPlugged) {
@@ -40,6 +39,11 @@ const test = () => {
         }
     })
     return str
+
+    // prendre l'adresse MAC
+    // faire en sorte d'avoir uen chaine complete avec la led ( l'app mobile qui allume la lumiere
+    // faire un system input, qui modifie le nom
+    // si le nom change, le ni change
 }
 </script>
 <style scoped>

@@ -8,20 +8,22 @@ admin.initializeApp({
 const db = admin.firestore();
 
 
-module.exports.registerSensor = async function (address) {
+module.exports.registerMachine = async function (adress, ni = "") {
 
-  const docRef = db.collection('sensors').doc(address);
+  const docRef = db.collection('caisse').doc(adress);
 
-  const sensor = {
-    address: address,
-    date: Date.now(),
+  const machine = {
+    id: adress,
+    disponibilite: true,
+    isPlugged: true,
+    numero: ''
   }
 
-  await docRef.get().then((snapshotDoc)=> {
+  await docRef.get().then((snapshotDoc) => {
     if (!snapshotDoc.exists)
-      docRef.set(sensor);
+      docRef.set(machine);
     else
-      docRef.update(sensor);
+      docRef.update(machine);
   })
 }
 
@@ -46,4 +48,6 @@ module.exports.listSensors = function () {
   return docRef.get()
 
 }
+
+module.exports
 
