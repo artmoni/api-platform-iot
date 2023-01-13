@@ -1,6 +1,6 @@
 <template>
     <div class="last">
-        <h1>Veuillez vous diriger vers les caisse n° : </h1>
+        <h1>Veuillez vous diriger vers les caisses n° : </h1>
         <h2>{{ test(caissesData) }}</h2>
     </div>
 
@@ -38,11 +38,11 @@
 
             </div>
             <div>
-                <div>
-                    <h3>
+                <div class="item">
+                    <h1>
                         Nombre de caisses disponibles :
-                    </h3>
-                    <p>{{ nbDispo }}</p>
+                    </h1>
+                    <h2>{{ nbDispo }}</h2>
 
                 </div>
             </div>
@@ -75,7 +75,7 @@ export default {
     methods: {
 
         test(list) {
-            this.listeCaisses = []
+            this.listeCaisses = ''
             this.nbDispo = 0;
             list.forEach((data) => {
                 if (data.disponibilite) {

@@ -7,12 +7,12 @@
   },
   "dependencies": {
     "dotenv": "^8.2.0",
+    "firebase": "^9.15.0",
     "firebase-admin": "^9.5.0",
     "serialport": "^9.2.4",
     "socket.io": "^2.4.0",
     "xbee": "^0.0.4",
-    "xbee-api": "^0.6.0",
-    "firebase": "^9.13.0"
+    "xbee-api": "^0.6.0"
   },
   "devDependencies": {
     "cross-env": "^7.0.3"

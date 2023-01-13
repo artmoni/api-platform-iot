@@ -1,13 +1,11 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
-import {collection, onSnapshot} from "firebase/firestore";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
 
 const db = admin.firestore();
-
 
 module.exports.registerMachine = async function (adress, ni = "") {
 
@@ -17,7 +15,7 @@ module.exports.registerMachine = async function (adress, ni = "") {
     id: adress,
     disponibilite: true,
     isPlugged: true,
-    numero: ''
+    numero: ni
   }
 
   await docRef.get().then((snapshotDoc) => {
@@ -25,53 +23,35 @@ module.exports.registerMachine = async function (adress, ni = "") {
       docRef.set(machine);
     else
       docRef.update(machine);
-    Date.now()
   })
 }
-module.exports.isUnavailable = async function (adress) {
+
+
+module.exports.listCaisse = function () {
+
+  const docRef = db.collection('caisse');
+
+  return docRef.get()
+
+}
+
+module.exports.getNIChange = async function (ni, adress) {
+   
+  return ni, adress
+
+
+}
+
+module.exports.isUnavailable = async function (adress, available) {
   const docRef = db.collection('caisse').doc(adress);
   const machine = {
     id: adress,
-    disponibilite: false,
-    isPlugged: true,
-    numero: ''
+    disponibilite: available,
+    isPlugged: true
   }
   await docRef.get().then((snapshotDoc) => {
     docRef.update(machine);
   })
-}
-
-module.exports.registerSample = async function (address, sample) {
-
-  const docRef = db.collection('sensors').doc(address)
-    .collection('samples').doc(Date.now().toString());
-
-  const data = {
-    value: sample,
-    date: Date.now(),
-  }
-  await docRef.set(data);
-
-
-}
-module.exports.getNIChange = async function () {
-  return onSnapshot(collection(db, 'caisse'), (snapshot) => {
-    snapshot.docChanges().forEach((change) => {
-      if (change.type === "modified") {
-        return change.doc.data().numero;
-      }
-
-    });
-
-  })
-}
-
-module.exports.listSensors = function () {
-
-  const docRef = db.collection('sensors');
-
-  return docRef.get()
-
 }
 
 module.exports
