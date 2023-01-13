@@ -37,6 +37,15 @@
                 <cash-register-machine v-else fill-color="#DA3E52" height="128px" width="128px"/>
 
             </div>
+            <div>
+                <div>
+                    <h3>
+                        Nombre de caisses disponibles :
+                    </h3>
+                    <p>{{ nbDispo }}</p>
+
+                </div>
+            </div>
         </div>
 
 
@@ -58,15 +67,21 @@ export default {
             caissesData: [],
             currentlyEditing: null,
             entryEditText: '',
-            listeCaisses: ''
+            listeCaisses: '',
+            nbDispo: 0
+
         }
     },
     methods: {
 
         test(list) {
             this.listeCaisses = []
+            this.nbDispo = 0;
             list.forEach((data) => {
-                if (data.disponibilite) this.listeCaisses += data.numero + " "
+                if (data.disponibilite) {
+                    this.listeCaisses += data.numero + " "
+                    this.nbDispo++
+                }
             })
             return this.listeCaisses
         },
@@ -90,6 +105,8 @@ export default {
                 })
             this.currentlyEditing = null;
             this.entryEditText = '';
+
+
         }
 
 
@@ -100,7 +117,13 @@ export default {
     }
 };
 
-
+firestore.onSnapshot(firestore.collection(db, 'caisse'), (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+        if (change.type === "modified") {
+            console.log("mon gros anus")
+        }
+    });
+})
 </script>
 <style scoped>
 
