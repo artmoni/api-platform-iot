@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="App2.MainPage">
+    <StackLayout>
+        <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+            <Label Text="IOT Music" HorizontalTextAlignment="Center" TextColor="White" FontSize="36"/>
+        </Frame>
+        <Label x:Name="lbInstName" Text="Instrument : Batterie" FontSize="Title" Padding="30,10,30,10" HorizontalTextAlignment="Center" TextColor="Red"/>
+        <BoxView Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+        <StackLayout Orientation="Vertical">
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Source="guitard.png"  Clicked="OnGuitardClicked" HeightRequest="55" WidthRequest="55" />
+                <Label Text="Guitare" VerticalTextAlignment="Center"  HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Source="batterie.png"  Clicked="OnBatterieClicked" HeightRequest="55" WidthRequest="55" />
+                <Label Text="Batterie" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Source="Basse.png"  Clicked="OnBasseClicked" HeightRequest="55" WidthRequest="55" />
+                <Label Text="Basse" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black" />
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Source="ContreBasse.png"  Clicked="OnContreBasseClicked" HeightRequest="55" WidthRequest="55" />
+                <Label Text="Contrebasse" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Source="Accordeon.png"  Clicked="OnAccordeonClicked" HeightRequest="55" WidthRequest="55" />
+                <Label Text="Accordeon" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Source="Orgue.png"  Clicked="OnOrgueClicked" HeightRequest="55" WidthRequest="55" />
+                <Label Text="Orgue" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Source="Maracas.png"  Clicked="OnMaracasClicked" HeightRequest="55" WidthRequest="55" />
+                <Label Text="Maracas" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black"/>
+            </StackLayout>
+            <StackLayout Orientation="Horizontal">
+                <ImageButton Source="Cuillere.png"  Clicked="OnCuillereClicked" HeightRequest="55" WidthRequest="55" />
+                <Label Text="Cuillere" VerticalTextAlignment="Center" HorizontalTextAlignment="Center" FontSize="Title" TextColor="Black"/>
+            </StackLayout>
+        </StackLayout>
+        <BoxView Color="Gray" HeightRequest="1" HorizontalOptions="FillAndExpand" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.Column="0" Text="Instrument 1" Clicked="ChangeInstTo1"/>
+            <Button Grid.Row="0" Grid.Column="1" Text="Instrument 2" Clicked="ChangeInstTo2"/>
+            <Label x:Name="int1Name" Grid.Row="1" Grid.Column="0" Text="Batterie" HorizontalTextAlignment="Center" />
+            <Label x:Name="int2Name" Grid.Row="1" Grid.Column="1" Text="Guitare" HorizontalTextAlignment="Center"/>
+        </Grid>
+
+    </StackLayout>
+    
+
+
+</ContentPage>
