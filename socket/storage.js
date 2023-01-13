@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 const serviceAccount = require('./serviceAccountKey.json');
+import {collection, onSnapshot} from "firebase/firestore";
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -24,6 +25,19 @@ module.exports.registerMachine = async function (adress, ni = "") {
       docRef.set(machine);
     else
       docRef.update(machine);
+    Date.now()
+  })
+}
+module.exports.isUnavailable = async function (adress) {
+  const docRef = db.collection('caisse').doc(adress);
+  const machine = {
+    id: adress,
+    disponibilite: false,
+    isPlugged: true,
+    numero: ''
+  }
+  await docRef.get().then((snapshotDoc) => {
+    docRef.update(machine);
   })
 }
 
@@ -39,6 +53,17 @@ module.exports.registerSample = async function (address, sample) {
   await docRef.set(data);
 
 
+}
+module.exports.getNIChange = async function () {
+  return onSnapshot(collection(db, 'caisse'), (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "modified") {
+        return change.doc.data().numero;
+      }
+
+    });
+
+  })
 }
 
 module.exports.listSensors = function () {

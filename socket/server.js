@@ -59,7 +59,10 @@ xbeeAPI.parser.on("data", function (frame) {
     console.log("C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET");
     let dataReceived = String.fromCharCode.apply(null, frame.data);
     console.log(">> ZIGBEE_RECEIVE_PACKET >", dataReceived);
+    storage.getNIChange().then((response) => {
 
+      res
+    })
   }
 
   if (C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type) {
