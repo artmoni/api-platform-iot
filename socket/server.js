@@ -1,9 +1,20 @@
 var SerialPort = require('serialport');
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
+const mqtt = require('mqtt');
+const client = mqtt.connect('mqtt://test.mosquitto.org');
+client.username = 'admin';
+client.password = 'hivemq';
 //var storage = require("./storage")
 require('dotenv').config()
 
+client.on('connect', () => {
+  console.log('Connecté au broker MQTT');
+});
+
+client.on('error', (error) => {
+  console.error('Erreur de connexion MQTT :', error);
+});
 
 const SERIAL_PORT = process.env.SERIAL_PORT;
 
@@ -41,40 +52,67 @@ serialport.on("open", function () {
 
 });
 
-// All frames parsed by the XBee will be emitted here
+client.on('connect', () => {
+  client.subscribe('PlayerOne');
+  client.subscribe('PlayerTwo');
+});
 
-// storage.listSensors().then((sensors) => sensors.forEach((sensor) => console.log(sensor.data())))
+client.on('message',(topic,message) => {
+  switch (topic) {
+    case 'PlayerOne':
+      console.log(`TopicResponse: ${message.toString()}`);
+    break;
+    case 'PlayerTwo':
+      console.log(`TopicResponse: ${message.toString()}`);
+    break;
+    default:
+      break;
+  }
+});
 
 xbeeAPI.parser.on("data", function (frame) {
 
-  //on new device is joined, register it
+  if(C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type){
+      console.log(frame);
+      // Vérification des messages déjà publiés sur le topic "PlayerOne"
+      switch (frame.nodeIdentifier) {
+        case 'PlayerOne':
+          client.publish('PlayerOne', JSON.stringify(frame));
+          console.log(`PlayerOne Topic = ${JSON.stringify(frame)}`);
+        break;
+        case 'PlayerTwo':
+          client.publish('PlayerTwo', JSON.stringify(frame));
+          console.log(`PlayerTwo Topic = ${JSON.stringify(frame)}`);
+        break;
+        default:
+          console.log(`xbee NI is not valide : ${frame.nodeIdentifier} \n PlayerOne or PlayerTwo awaited`);
+        break;
+      }
+    }
 
-  //on packet received, dispatch event
-  //let dataReceived = String.fromCharCode.apply(null, frame.data);
-  if (C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET === frame.type) {
-    console.log("C.FRAME_TYPE.ZIGBEE_RECEIVE_PACKET");
-    let dataReceived = String.fromCharCode.apply(null, frame.data);
-    console.log(">> ZIGBEE_RECEIVE_PACKET >", dataReceived);
+    if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
+      // Vérifie si le bouton D0 a été pressé.
+      const buttonD0Pressed = frame.digitalSamples.D0 === 1;
+      if (buttonD0Pressed) {
+        console.log("Button D0 was pressed.");
+        // Ajoutez la logique ici lorsque le bouton D0 est pressé.
+      }
 
+      // Vérifie si le bouton D1 a été pressé.
+      const buttonD1Pressed = frame.digitalSamples.D1 === 1;
+      if (buttonD1Pressed) {
+        console.log("Button D1 was pressed.");
+        // Ajoutez la logique ici lorsque le bouton D1 est pressé.
+      }
   }
+  
+  
+});
 
-  if (C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type) {
-    // let dataReceived = String.fromCharCode.apply(null, frame.nodeIdentifier);
-    console.log("NODE_IDENTIFICATION");
-    //storage.registerSensor(frame.remote64)
-
-  } else if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
-
-    console.log("ZIGBEE_IO_DATA_SAMPLE_RX")
-    console.log(frame.analogSamples.AD0)
-    //storage.registerSample(frame.remote64,frame.analogSamples.AD0 )
-
-  } else if (C.FRAME_TYPE.REMOTE_COMMAND_RESPONSE === frame.type) {
-    console.log("REMOTE_COMMAND_RESPONSE")
-  } else {
-    console.debug(frame);
-    let dataReceived = String.fromCharCode.apply(null, frame.commandData)
-    console.log(dataReceived);
+xbeeAPI.parser.on("data", function (frame) {
+  if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
+    const sourceAddress = frame.remote64; //Permet de savoir quelles XBee a envoyé l'information
+    console.log("Received packet from XBee with address " + sourceAddress);
+    // reste du code de manipulation de paquets ici ...
   }
-
 });
