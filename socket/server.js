@@ -72,6 +72,7 @@ client.on('message',(topic,message) => {
 
 xbeeAPI.parser.on("data", function (frame) {
 
+  //console.log(frame);
   if(C.FRAME_TYPE.NODE_IDENTIFICATION === frame.type){
       console.log(frame);
       // Vérification des messages déjà publiés sur le topic "PlayerOne"
@@ -88,31 +89,20 @@ xbeeAPI.parser.on("data", function (frame) {
           console.log(`xbee NI is not valide : ${frame.nodeIdentifier} \n PlayerOne or PlayerTwo awaited`);
         break;
       }
+  }
+
+  if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
+
+    const buttonD0Pressed = frame.digitalSamples.DIO0 === 1;
+    if (buttonD0Pressed) {
+      client.publish('YesButton',JSON.stringify(frame));
+      console.log('YesButton publish');
     }
 
-    if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
-      // Vérifie si le bouton D0 a été pressé.
-      const buttonD0Pressed = frame.digitalSamples.D0 === 1;
-      if (buttonD0Pressed) {
-        console.log("Button D0 was pressed.");
-        // Ajoutez la logique ici lorsque le bouton D0 est pressé.
-      }
-
-      // Vérifie si le bouton D1 a été pressé.
-      const buttonD1Pressed = frame.digitalSamples.D1 === 1;
-      if (buttonD1Pressed) {
-        console.log("Button D1 was pressed.");
-        // Ajoutez la logique ici lorsque le bouton D1 est pressé.
-      }
-  }
-  
-  
-});
-
-xbeeAPI.parser.on("data", function (frame) {
-  if (C.FRAME_TYPE.ZIGBEE_IO_DATA_SAMPLE_RX === frame.type) {
-    const sourceAddress = frame.remote64; //Permet de savoir quelles XBee a envoyé l'information
-    console.log("Received packet from XBee with address " + sourceAddress);
-    // reste du code de manipulation de paquets ici ...
+    const buttonD1Pressed = frame.digitalSamples.DIO1 === 1;
+    if (buttonD1Pressed) {
+      client.publish('NoButton',JSON.stringify(frame));
+      console.log('NoButton publish');
+    }
   }
 });
