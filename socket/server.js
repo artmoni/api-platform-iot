@@ -2,26 +2,48 @@ var SerialPort = require('serialport');
 var xbee_api = require('xbee-api');
 var C = xbee_api.constants;
 
-const mqtt = require('mqtt')
 require('dotenv').config()
-
-const client = mqtt.connect('mqtt://test.mosquitto.org')
+const mqtt = require('mqtt');
+const client = mqtt.connect('mqtt://test.mosquitto.org');
+let lastReceivedMessage = ''; // Garder une trace du dernier message envoyé
 
 client.on('connect', function () {
-  client.subscribe('0013a20012345678', function (err) {
+  console.log('Connected to MQTT broker');
+  
+  // Subscribe to the topic
+  client.subscribe('test/topic', function (err) {
     if (!err) {
-      client.publish('0013a20012345678', 'Hello mqtt')
+      console.log('Subscribed to topic test/topic');
     } else {
       console.error('Failed to subscribe: ', err);
     }
-  })
-})
+  });
+});
+
+let isResponding = false; // Drapeau pour indiquer si une réponse est en cours
 
 client.on('message', function (topic, message) {
-  console.log(topic, message.toString())
-  // Do not end the client here if you want to keep the connection open
-  // client.end()
-})
+  const receivedMessage = message.toString();
+  console.log(`Received message: ${receivedMessage} on topic: ${topic}`);
+  
+  // Vérifier si le message reçu est différent du dernier envoyé
+  if (!isResponding && receivedMessage !== lastReceivedMessage) {
+    // Activer le drapeau pour indiquer qu'une réponse est en cours
+    isResponding = true;
+
+    // Publier un message de réponse sur le même sujet
+    client.publish('test/topic', `Received your message: ${receivedMessage}`);
+    lastReceivedMessage = receivedMessage; // Mettre à jour le dernier message envoyé
+
+    // Désactiver le drapeau après un court délai
+    setTimeout(() => {
+      isResponding = false;
+    }, 1000); // Délai de 1 seconde pour réactiver la réception des messages
+  }
+});
+
+// To keep the script running and listening for messages
+process.stdin.resume();
 
 const SERIAL_PORT = process.env.SERIAL_PORT;
 
